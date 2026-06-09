@@ -1,0 +1,42 @@
+<div class="reservas-container">
+  <h2>📋 Mis Reservas</h2>
+
+  <div class="buscador">
+    <input
+      type="email"
+      [ngModel]="email()"
+      (ngModelChange)="email.set($event); cargarReservas()"
+      placeholder="tu@email.com"
+      class="input-email"
+    />
+  </div>
+
+  <div *ngIf="error()" class="mensaje-error">{{ error() }}</div>
+  <div *ngIf="mensaje()" class="mensaje-exito">{{ mensaje() }}</div>
+
+  <div class="reservas-lista">
+    <div *ngFor="let reserva of reservasFiltradas()" class="reserva-card">
+      <p><strong>ID Reserva:</strong> {{ reserva.id }}</p>
+      <p><strong>Paquete ID:</strong> {{ reserva.paqueteId }}</p>
+      <p><strong>Número de personas:</strong> {{ reserva.numeroPersonas }}</p>
+      <p><strong>Precio total:</strong> {{ reserva.precioTotal | currency:'EUR' }}</p>
+      <p><strong>Estado:</strong>
+        <span [class]="getEstadoClase(reserva.estado)">{{ reserva.estado }}</span>
+      </p>
+      <p><strong>Fecha de reserva:</strong> {{ reserva.fechaReserva | date:'dd/MM/yyyy HH:mm' }}</p>
+
+      <button *ngIf="reserva.estado === 'PENDIENTE'"
+              (click)="cancelarReserva(reserva.id)"
+              class="btn-cancelar">
+        ❌ Cancelar reserva
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="reservasFiltradas().length === 0 && !error() && !mensaje() && email()" class="sin-resultados">
+    No se encontraron reservas para este email.
+  </div>
+  <div *ngIf="!email()" class="sin-resultados">
+    Ingresa tu email para ver tus reservas.
+  </div>
+</div>

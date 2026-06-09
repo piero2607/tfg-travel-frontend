@@ -1,0 +1,33 @@
+<div class="paquetes-container">
+  <h2>🏝️ Paquetes Turísticos</h2>
+
+  <!-- Buscador en tiempo real -->
+  <div class="filtros">
+    <input
+      type="text"
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      placeholder="🔍 Buscar por destino o nombre..."
+      class="input-busqueda"
+    />
+    <button *ngIf="searchTerm()" (click)="clearSearch()" class="btn btn-limpiar">✖️</button>
+  </div>
+
+  <!-- Grid de paquetes -->
+  <div class="paquetes-grid">
+    <div *ngFor="let paquete of paquetesFiltrados()" class="tarjeta">
+      <!-- contenido de la tarjeta (igual que antes) -->
+      <h3 class="tarjeta-titulo">{{ paquete.nombre }}</h3>
+      <p><strong>📍 Destino:</strong> {{ paquete.destino }}</p>
+      <p class="descripcion">{{ paquete.descripcion | slice:0:100 }}...</p>
+      <p><strong>💰 Precio:</strong> {{ paquete.precio | currency:'EUR' }}</p>
+      <p><strong>📅 Duración:</strong> {{ paquete.duracionDias }} días</p>
+      <p><strong>🎫 Plazas disponibles:</strong> {{ paquete.plazasDisponibles }}</p>
+      <button (click)="reservarConDatos(paquete)" class="btn btn-reservar">📝 Reservar</button>
+    </div>
+  </div>
+
+  <div *ngIf="paquetesFiltrados().length === 0" class="sin-resultados">
+    <p>No hay paquetes disponibles. 🏖️</p>
+  </div>
+</div>

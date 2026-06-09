@@ -1,0 +1,91 @@
+<div class="reserva-container">
+  <h2>📝 Reservar Paquete</h2>
+
+  <div *ngIf="error" class="mensaje-error">{{ error }}</div>
+  <div *ngIf="mensaje" class="mensaje-exito">{{ mensaje }}</div>
+
+  <div *ngIf="paquete" class="paquete-card">
+    <h3>{{ paquete.nombre }}</h3>
+    <p><strong>📍 Destino:</strong> {{ paquete.destino }}</p>
+    <p><strong>💰 Precio por persona:</strong> {{ paquete.precio | currency:'EUR' }}</p>
+    <p><strong>📅 Duración:</strong> {{ paquete.duracionDias }} días</p>
+    <p><strong>🎫 Plazas disponibles:</strong> {{ paquete.plazasDisponibles }}</p>
+  </div>
+
+  
+  <div *ngIf="paquete" class="formulario">
+    <div class="campo">
+      <label>Nombre</label>
+      <input type="text" 
+             [(ngModel)]="clienteNombre" 
+             (input)="validarNombre()"
+             (blur)="validarNombre()"
+             placeholder="Tu nombre" />
+      <small class="error" *ngIf="errorNombre">{{ errorNombre }}</small>
+    </div>
+
+    
+    <div class="campo">
+      <label>Apellidos</label>
+      <input type="text" 
+             [(ngModel)]="apellidos" 
+             (input)="validarApellidos()"
+             (blur)="validarApellidos()"
+             placeholder="Tus apellidos" />
+      <small class="error" *ngIf="errorApellidos">{{ errorApellidos }}</small>
+    </div>
+
+   
+    <div class="campo">
+      <label>Email</label>
+      <input type="email" 
+             [(ngModel)]="clienteEmail" 
+             (input)="validarEmail()"
+             (blur)="validarEmail()"
+             placeholder="tu@email.com" />
+      <small class="error" *ngIf="errorEmail">{{ errorEmail }}</small>
+    </div>
+
+    <div class="campo">
+      <label>Documento de identidad</label>
+      <input type="text" 
+             [(ngModel)]="documento" 
+             (input)="validarDocumento()"
+             (blur)="validarDocumento()"
+             placeholder="DNI / NIE / Pasaporte" />
+      <small class="error" *ngIf="errorDocumento">{{ errorDocumento }}</small>
+    </div>
+
+    <div class="campo">
+      <label>Teléfono</label>
+      <input type="tel" 
+             [(ngModel)]="telefono" 
+             (input)="validarTelefono()"
+             (blur)="validarTelefono()"
+             placeholder="Número de contacto" />
+      <small class="error" *ngIf="errorTelefono">{{ errorTelefono }}</small>
+    </div>
+
+    <div class="campo">
+      <label>Número de personas</label>
+      <input type="number" 
+             [(ngModel)]="numeroPersonas" 
+             min="1" 
+             [max]="paquete.plazasDisponibles" />
+      <small class="error" *ngIf="numeroPersonas < 1">Debe haber al menos 1 persona</small>
+    </div>
+
+    <div class="total">Total: {{ (paquete.precio * numeroPersonas) | currency:'EUR' }}</div>
+
+    <div class="botones">
+      <button (click)="reservar()" 
+              [disabled]="!clienteNombre || !apellidos || !clienteEmail || !documento || !telefono || numeroPersonas < 1 || errorNombre || errorApellidos || errorEmail || errorDocumento || errorTelefono"
+              class="btn btn-confirmar">
+        ✅ Confirmar Reserva
+      </button>
+      <button (click)="volver()" class="btn btn-volver">⬅️ Volver</button>
+    </div>
+  </div>
+
+  <div *ngIf="!paquete && !error" class="cargando">Cargando paquete...</div>
+</div>

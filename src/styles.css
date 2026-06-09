@@ -1,1 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --booking-blue: #003b95;
+  --booking-blue-dark: #002a6e;
+  --booking-green: #008234;
+  --booking-red: #d4111e;
+  --booking-gray-bg: #f5f5f5;
+  --booking-gray-border: #e7e7e7;
+  --booking-text: #1a1a1a;
+  --booking-text-light: #595959;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--booking-gray-bg);
+  color: var(--booking-text);
+}
+
+.navbar {
+  background-color: var(--booking-blue);
+  padding: 1rem;
+  color: white;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-right: 1rem;
+  transition: opacity 0.2s;
+}
+
+.navbar a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+button, .btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+button:active, .btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--booking-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--booking-blue-dark);
+}
+
+.btn-success {
+  background-color: var(--booking-green);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--booking-red);
+  color: white;
+}
+
+.card {
+  border: 1px solid var(--booking-gray-border);
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: white;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+input, select, textarea {
+  border: 1px solid var(--booking-gray-border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  width: 100%;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--booking-blue);
+  box-shadow: 0 0 0 2px rgba(0,59,149,0.2);
+}
+
+.navbar > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .navbar > div {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .navbar h1 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .navbar div:last-child {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .navbar a {
+    margin: 0;
+  }
+}
+
+main {
+  overflow-x: hidden;
+}
