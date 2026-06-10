@@ -25,11 +25,25 @@
       </p>
       <p><strong>Fecha de reserva:</strong> {{ reserva.fechaReserva | date:'dd/MM/yyyy HH:mm' }}</p>
 
-      <button *ngIf="reserva.estado === 'PENDIENTE'"
-              (click)="cancelarReserva(reserva.id)"
-              class="btn-cancelar">
-        ❌ Cancelar reserva
-      </button>
+      <div class="acciones">
+        <button *ngIf="reserva.estado === 'PENDIENTE'"
+                (click)="confirmarReserva(reserva.id)"
+                class="btn-confirmar">
+          ✅ Confirmar reserva
+        </button>
+        <button *ngIf="reserva.estado === 'PENDIENTE'"
+                (click)="cancelarReserva(reserva.id)"
+                class="btn-cancelar">
+          ❌ Cancelar reserva
+        </button>
+
+        
+        <button *ngIf="reserva.estado === 'CONFIRMADA'"
+                (click)="verTicket(reserva)"
+                class="btn-ticket">
+          🎟️ Ver ticket
+        </button>
+      </div>
     </div>
   </div>
 

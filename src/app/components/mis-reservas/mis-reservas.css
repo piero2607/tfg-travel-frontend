@@ -10,7 +10,6 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-/* Buscador responsivo */
 .buscador {
   display: flex;
   gap: 1rem;
@@ -29,23 +28,7 @@ h2 {
   border-color: #003b95;
   box-shadow: 0 0 0 2px rgba(0, 59, 149, 0.2);
 }
-.btn-buscar {
-  background-color: #003b95;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-.btn-buscar:hover {
-  background-color: #002a6e;
-}
-.btn-buscar:active {
-  transform: scale(0.98);
-}
 
-/* Mensajes */
 .mensaje-error, .mensaje-exito {
   padding: 1rem;
   border-radius: 4px;
@@ -60,6 +43,7 @@ h2 {
   color: #155724;
 }
 
+/* Lista de reservas */
 .reservas-lista {
   display: flex;
   flex-direction: column;
@@ -99,16 +83,53 @@ h2 {
   font-weight: bold;
 }
 
-/* Botón cancelar */
+.acciones {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-confirmar {
+  background-color: #008234;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.btn-confirmar:hover {
+  background-color: #006128;
+}
+.btn-confirmar:active {
+  transform: scale(0.98);
+}
+
 .btn-cancelar {
   background-color: #d4111e;
   color: white;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-ticket {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.btn-ticket:hover {
+  background-color: #5a6268;
+}
+.btn-ticket:active {
+  transform: scale(0.98);
 }
 .btn-cancelar:hover {
   background-color: #a00d17;
@@ -117,32 +138,16 @@ h2 {
   transform: scale(0.98);
 }
 
-/* Sin resultados */
 .sin-resultados {
   text-align: center;
   margin-top: 2rem;
   color: #595959;
 }
 
-.buscador input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-.buscador input:focus {
-  outline: none;
-  border-color: #003b95;
-  box-shadow: 0 0 0 2px rgba(0, 59, 149, 0.2);
-}
-
+/* Responsive */
 @media (max-width: 600px) {
   .buscador {
     flex-direction: column;
-  }
-  .btn-buscar {
-    width: 100%;
   }
   .reserva-card {
     padding: 0.75rem;

@@ -1,0 +1,14 @@
+<div id="contenidoTicket" class="ticket">
+  <h2>🎫 Comprobante de reserva</h2>
+  <p><strong>ID Reserva:</strong> {{ reserva.id }}</p>
+  <p><strong>Paquete ID:</strong> {{ reserva.paqueteId }}</p>
+  <p><strong>Cliente:</strong> {{ reserva.clienteNombre }} {{ reserva.apellidos }}</p>
+  <p><strong>Email:</strong> {{ reserva.clienteEmail }}</p>
+  <p><strong>Documento:</strong> {{ reserva.documento }}</p>
+  <p><strong>Teléfono:</strong> {{ reserva.telefono }}</p>
+  <p><strong>Personas:</strong> {{ reserva.numeroPersonas }}</p>
+  <p><strong>Precio total:</strong> {{ reserva.precioTotal | currency:'EUR' }}</p>
+  <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+  <p><strong>Fecha:</strong> {{ reserva.fechaReserva | date:'dd/MM/yyyy HH:mm' }}</p>
+</div>
+<button (click)="descargarTicket()">📄 Descargar PDF</button>

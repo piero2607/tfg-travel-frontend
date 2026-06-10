@@ -1,12 +1,16 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'; 
 import { ReservaService, Reserva } from '../../services/reserva';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog';
+import { TicketReservaComponent } from '../ticket-reserva/ticket-reserva'; 
+
 
 @Component({
   selector: 'app-mis-reservas',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatDialogModule],  
   templateUrl: './mis-reservas.html',
   styleUrls: ['./mis-reservas.css']
 })
@@ -22,11 +26,11 @@ export class MisReservas implements OnInit {
     );
   });
 
-  // Mensajes
   mensaje = signal('');
   error = signal('');
 
   private reservaService = inject(ReservaService);
+  private dialog = inject(MatDialog);   
 
   ngOnInit(): void {
     const emailGuardado = localStorage.getItem('email');
@@ -59,12 +63,49 @@ export class MisReservas implements OnInit {
   }
 
   cancelarReserva(id: string): void {
-    if (confirm('¿Cancelar reserva?')) {
-      this.reservaService.cancelarReserva(id).subscribe({
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '380px',
+      data: {
+        title: 'Cancelar reserva',
+        message: '¿Estás seguro de que quieres cancelar esta reserva? Esta acción no se puede deshacer.',
+        confirmText: 'Sí, cancelar',
+        cancelText: 'No, volver'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.reservaService.cancelarReserva(id).subscribe({
+          next: () => this.cargarReservas(),
+          error: () => this.error.set('Error al cancelar la reserva')
+        });
+      }
+    });
+  }
+
+  confirmarReserva(id: string): void {
+  this.dialog.open(ConfirmDialogComponent, {
+    width: '380px',
+    data: {
+      title: 'Confirmar reserva',
+      message: '¿Confirmas esta reserva? A partir de este momento quedará confirmada y no podrás cancelarla.',
+      confirmText: 'Sí, confirmar',
+      cancelText: 'No, volver'
+    }
+  }).afterClosed().subscribe(confirmed => {
+    if (confirmed) {
+      this.reservaService.confirmarReserva(id).subscribe({
         next: () => this.cargarReservas(),
-        error: () => this.error.set('Error al cancelar')
+        error: () => this.error.set('Error al confirmar la reserva')
       });
     }
+  });
+}
+  verTicket(reserva: Reserva): void {
+    this.dialog.open(TicketReservaComponent, {
+      width: '550px',
+      data: reserva
+    });
   }
 
   getEstadoClase(estado: string): string {

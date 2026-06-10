@@ -7,6 +7,7 @@
   <div *ngIf="paquete" class="paquete-card">
     <h3>{{ paquete.nombre }}</h3>
     <p><strong>📍 Destino:</strong> {{ paquete.destino }}</p>
+    <p><strong>📝 Descripción:</strong> {{ paquete.descripcion }}</p>   
     <p><strong>💰 Precio por persona:</strong> {{ paquete.precio | currency:'EUR' }}</p>
     <p><strong>📅 Duración:</strong> {{ paquete.duracionDias }} días</p>
     <p><strong>🎫 Plazas disponibles:</strong> {{ paquete.plazasDisponibles }}</p>
