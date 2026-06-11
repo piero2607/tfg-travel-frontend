@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PaqueteService, Paquete } from '../../services/paquete';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioPaqueteComponent } from '../formulario-paquete/formulario-paquete';
 
 @Component({
   selector: 'app-lista-paquetes',
@@ -46,23 +48,26 @@ export class ListaPaquetes implements OnInit {
 
   constructor(
     private paqueteService: PaqueteService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.cargarPaquetes();
   }
 
-  cargarPaquetes(): void {
-    this.paqueteService.obtenerTodos().subscribe({
-      next: (data) => {
-        this.paquetes.set(data);
-        this.resetPagination();
-      },
-      error: (err) => console.error('Error al cargar paquetes:', err)
-    });
-  }
-
+cargarPaquetes(): void {
+  this.paqueteService.obtenerTodos().subscribe({
+    next: (data) => {
+      const paquetesOrdenados = [...data].sort((a, b) => 
+        new Date(b.fechaCreacion).getTime() - new Date(a.fechaCreacion).getTime()
+      );
+      this.paquetes.set(paquetesOrdenados);
+      this.resetPagination();
+    },
+    error: (err) => console.error('Error al cargar paquetes:', err)
+  });
+}
   onSearchChange(term: string): void {
     this.searchTerm.set(term);
     this.resetPagination();
@@ -85,4 +90,17 @@ export class ListaPaquetes implements OnInit {
     console.log('reservarConDatos llamado con paquete:', paquete);
     this.router.navigate(['/reservar', paquete.id], { state: { paquete } });
   }
+
+  abrirFormularioPaquete(): void {
+  const dialogRef = this.dialog.open(FormularioPaqueteComponent, {
+    width: '500px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.cargarPaquetes();
+      this.resetPagination();
+    }
+  });
+}
 }

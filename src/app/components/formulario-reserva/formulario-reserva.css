@@ -9,7 +9,8 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-.mensaje-error, .mensaje-exito {
+.mensaje-error,
+.mensaje-exito {
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;

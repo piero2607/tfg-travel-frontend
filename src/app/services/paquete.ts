@@ -11,6 +11,7 @@ export interface Paquete {
   duracionDias: number;
   plazasDisponibles: number;
   urlImagen: string;
+  fechaCreacion: string
 }
 
 @Injectable({

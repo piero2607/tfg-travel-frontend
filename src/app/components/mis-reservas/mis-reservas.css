@@ -1,4 +1,3 @@
-/* Contenedor principal */
 .reservas-container {
   max-width: 800px;
   margin: 0 auto;
@@ -29,7 +28,8 @@ h2 {
   box-shadow: 0 0 0 2px rgba(0, 59, 149, 0.2);
 }
 
-.mensaje-error, .mensaje-exito {
+.mensaje-error,
+.mensaje-exito {
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
@@ -43,7 +43,6 @@ h2 {
   color: #155724;
 }
 
-/* Lista de reservas */
 .reservas-lista {
   display: flex;
   flex-direction: column;
@@ -115,6 +114,12 @@ h2 {
   cursor: pointer;
   transition: background-color 0.2s, transform 0.1s;
 }
+.btn-cancelar:hover {
+  background-color: #a00d17;
+}
+.btn-cancelar:active {
+  transform: scale(0.98);
+}
 
 .btn-ticket {
   background-color: #6c757d;
@@ -131,12 +136,6 @@ h2 {
 .btn-ticket:active {
   transform: scale(0.98);
 }
-.btn-cancelar:hover {
-  background-color: #a00d17;
-}
-.btn-cancelar:active {
-  transform: scale(0.98);
-}
 
 .sin-resultados {
   text-align: center;
@@ -144,7 +143,6 @@ h2 {
   color: #595959;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .buscador {
     flex-direction: column;

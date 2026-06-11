@@ -9,6 +9,18 @@
   margin-bottom: 1.5rem;
 }
 
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-actions h2 {
+  margin-bottom: 0;
+}
+
 .filtros {
   display: flex;
   flex-wrap: wrap;
@@ -26,7 +38,6 @@
   font-size: 1rem;
   transition: border-color 0.2s;
 }
-
 .input-busqueda:focus {
   outline: none;
   border-color: #003b95;
@@ -43,11 +54,9 @@
   font-weight: 500;
   transition: opacity 0.2s, transform 0.1s;
 }
-
 .btn-limpiar:hover {
   background-color: #5a6268;
 }
-
 .btn-limpiar:active {
   transform: scale(0.98);
 }
@@ -78,7 +87,6 @@
   display: flex;
   flex-direction: column;
 }
-
 .tarjeta:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -114,7 +122,6 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
-
 .btn-reservar:hover {
   background-color: #002a6e;
 }
@@ -135,9 +142,23 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
-
 .btn-ver-mas:hover {
   background-color: #002a6e;
+}
+
+.btn-add {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+.btn-add:hover {
+  background-color: #218838;
 }
 
 .sin-resultados {
