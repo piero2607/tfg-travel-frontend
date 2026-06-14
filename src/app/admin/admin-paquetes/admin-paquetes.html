@@ -1,7 +1,9 @@
-<div class="paquetes-container">
-  <h2>🏝️ Paquetes Turísticos</h2>
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>📋 Panel de Administración - Paquetes</h2>
+    <button (click)="abrirFormulario()" class="btn-add">➕ Añadir nuevo paquete</button>
+  </div>
 
-  <!-- Buscador en tiempo real -->
   <div class="filtros">
     <input
       type="text"
@@ -10,10 +12,9 @@
       placeholder="🔍 Buscar por destino o nombre..."
       class="input-busqueda"
     />
-    <button *ngIf="searchTerm()" (click)="clearSearch()" class="btn btn-limpiar">✖️</button>
+    <button *ngIf="searchTerm()" (click)="clearSearch()" class="btn-limpiar">✖️</button>
   </div>
 
-  <!-- Mensajes informativos -->
   <p *ngIf="!searchTerm()" class="info-mensaje">
     ✨ Mostrando {{ visibleCount() }} de {{ paquetesFiltrados().length }} paquetes.
   </p>
@@ -24,7 +25,7 @@
   <!-- Grid de paquetes -->
   <div class="paquetes-grid">
     <div *ngFor="let paquete of paquetesMostrados()" class="tarjeta">
-      <img src="https://picsum.photos/300/200?random={{paquete.id}}" 
+      <img src="https://picsum.photos/300/200?random={{paquete.id}}"
            alt="Imagen de {{paquete.destino}}"
            class="tarjeta-imagen">
       <h3 class="tarjeta-titulo">{{ paquete.nombre }}</h3>
@@ -33,11 +34,14 @@
       <p><strong>💰 Precio:</strong> {{ paquete.precio | currency:'EUR' }}</p>
       <p><strong>📅 Duración:</strong> {{ paquete.duracionDias }} días</p>
       <p><strong>🎫 Plazas disponibles:</strong> {{ paquete.plazasDisponibles }}</p>
-      <button (click)="reservarConDatos(paquete)" class="btn btn-reservar">📝 Reservar</button>
+
+      <div class="tarjeta-botones">
+        <button (click)="editarPaquete(paquete)" class="btn-editar">✏️ Editar</button>
+        <button (click)="eliminarPaquete(paquete.id)" class="btn-eliminar">🗑️ Eliminar</button>
+      </div>
     </div>
   </div>
 
-  <!-- Botón "Ver más" -->
   <div *ngIf="!searchTerm() && hayMas()" class="ver-mas-container">
     <button (click)="loadMore()" class="btn-ver-mas">Ver más paquetes +</button>
   </div>

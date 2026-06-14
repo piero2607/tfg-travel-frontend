@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';         
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'; 
 import { MatButtonModule } from '@angular/material/button';
-import { PaqueteService } from '../../services/paquete';
+import { PaqueteService, Paquete } from '../../services/paquete';
 
 @Component({
   selector: 'app-formulario-paquete',
@@ -28,12 +28,28 @@ export class FormularioPaqueteComponent {
   errorDuracion = '';
   errorPlazas = '';
 
+  esEdicion = false;
+  paqueteId: string | null = null;
+
   constructor(
     private dialogRef: MatDialogRef<FormularioPaqueteComponent>,
-    private paqueteService: PaqueteService
-  ) {}
+    private paqueteService: PaqueteService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Paquete   
+  ) {
+    if (data) {
+      this.esEdicion = true;
+      this.paqueteId = data.id;
+      this.nombre = data.nombre;
+      this.destino = data.destino;
+      this.descripcion = data.descripcion || '';
+      this.precio = data.precio;
+      this.duracionDias = data.duracionDias;
+      this.plazasDisponibles = data.plazasDisponibles;
+      this.urlImagen = data.urlImagen || '';
+    }
+  }
 
-  validarNombre(): void {
+    validarNombre(): void {
     if (!this.nombre.trim()) {
       this.errorNombre = 'El nombre es obligatorio';
     } else if (this.nombre.trim().length < 3) {
@@ -42,7 +58,6 @@ export class FormularioPaqueteComponent {
       this.errorNombre = '';
     }
   }
-
   validarDestino(): void {
     if (!this.destino.trim()) {
       this.errorDestino = 'El destino es obligatorio';
@@ -100,14 +115,14 @@ export class FormularioPaqueteComponent {
     this.validarPrecio();
     this.validarDuracion();
     this.validarPlazas();
-    return !this.errorNombre && !this.errorDestino && ! this.errorDescripcion && !this.errorPrecio &&
+    return !this.errorNombre && !this.errorDestino && !this.errorDescripcion && !this.errorPrecio &&
            !this.errorDuracion && !this.errorPlazas;
   }
 
   guardar(): void {
     if (!this.validarTodo()) return;
 
-    const nuevoPaquete = {
+    const paqueteData = {
       nombre: this.nombre.trim(),
       destino: this.destino.trim(),
       descripcion: this.descripcion.trim(),
@@ -117,13 +132,23 @@ export class FormularioPaqueteComponent {
       urlImagen: this.urlImagen.trim()
     };
 
-    this.paqueteService.crearPaquete(nuevoPaquete).subscribe({
-      next: () => this.dialogRef.close(true),
-      error: (err) => {
-        console.error('Error al crear paquete', err);
-        this.dialogRef.close(false);
-      }
-    });
+    if (this.esEdicion && this.paqueteId) {
+      this.paqueteService.actualizarPaquete(this.paqueteId, paqueteData).subscribe({
+        next: () => this.dialogRef.close(true),
+        error: (err) => {
+          console.error('Error al actualizar paquete', err);
+          this.dialogRef.close(false);
+        }
+      });
+    } else {
+      this.paqueteService.crearPaquete(paqueteData).subscribe({
+        next: () => this.dialogRef.close(true),
+        error: (err) => {
+          console.error('Error al crear paquete', err);
+          this.dialogRef.close(false);
+        }
+      });
+    }
   }
 
   cancelar(): void {

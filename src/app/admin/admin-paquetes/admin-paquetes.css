@@ -1,12 +1,35 @@
-.paquetes-container {
+.admin-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.paquetes-container h2 {
-  color: #003b95;
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 1.5rem;
+}
+.admin-header h2 {
+  margin: 0;
+  color: #003b95;
+}
+
+.btn-add {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+.btn-add:hover {
+  background-color: #218838;
 }
 
 .filtros {
@@ -16,7 +39,6 @@
   margin-bottom: 2rem;
   align-items: center;
 }
-
 .input-busqueda {
   flex: 2;
   min-width: 150px;
@@ -24,14 +46,12 @@
   border: 1px solid #e7e7e7;
   border-radius: 4px;
   font-size: 1rem;
-  transition: border-color 0.2s;
 }
 .input-busqueda:focus {
   outline: none;
   border-color: #003b95;
   box-shadow: 0 0 0 2px rgba(0, 59, 149, 0.2);
 }
-
 .btn-limpiar {
   background-color: #6c757d;
   color: white;
@@ -39,14 +59,9 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: 500;
-  transition: opacity 0.2s, transform 0.1s;
 }
 .btn-limpiar:hover {
   background-color: #5a6268;
-}
-.btn-limpiar:active {
-  transform: scale(0.98);
 }
 
 .info-mensaje {
@@ -56,8 +71,6 @@
   margin-top: -0.5rem;
   margin-bottom: 1rem;
   text-align: center;
-  font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
-  letter-spacing: 0.3px;
 }
 
 .paquetes-grid {
@@ -65,7 +78,6 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
 }
-
 .tarjeta {
   border: 1px solid #e7e7e7;
   border-radius: 12px;
@@ -78,13 +90,11 @@
 .tarjeta:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .tarjeta-titulo {
   margin-top: 0;
   color: #003b95;
   font-size: 1.25rem;
 }
-
 .tarjeta-imagen {
   width: 100%;
   height: 160px;
@@ -92,33 +102,48 @@
   border-radius: 8px 8px 0 0;
   margin-bottom: 0.75rem;
 }
-
 .descripcion {
   color: #595959;
   line-height: 1.4;
 }
 
-.btn-reservar {
-  width: 100%;
+/* Botones de acción dentro de cada tarjeta */
+.tarjeta-botones {
+  display: flex;
+  gap: 0.5rem;
   margin-top: 0.75rem;
-  background-color: #003b95;
+}
+.btn-editar {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s;
+}
+.btn-editar:hover {
+  background-color: #e0a800;
+}
+.btn-eliminar {
+  background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 0.5rem;
-  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
   cursor: pointer;
+  font-size: 0.8rem;
   transition: background-color 0.2s;
 }
-.btn-reservar:hover {
-  background-color: #002a6e;
+.btn-eliminar:hover {
+  background-color: #c82333;
 }
 
 .ver-mas-container {
   text-align: center;
   margin-top: 2rem;
 }
-
 .btn-ver-mas {
   background-color: #003b95;
   color: white;
@@ -128,7 +153,6 @@
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 .btn-ver-mas:hover {
   background-color: #002a6e;
@@ -141,14 +165,18 @@
 }
 
 @media (max-width: 600px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
   .filtros {
     flex-direction: column;
     align-items: stretch;
   }
-  .input-busqueda {
+  .input-busqueda, .btn-limpiar {
     width: 100%;
   }
-  .btn-limpiar {
-    width: 100%;
+  .tarjeta-botones {
+    justify-content: space-between;
   }
 }

@@ -41,4 +41,11 @@ export class PaqueteService {
   buscarPorPrecio(precioMaximo: number): Observable<Paquete[]> {
     return this.http.get<Paquete[]>(`${this.apiUrl}/filtrar?precioMaximo=${precioMaximo}`);
   }
+  actualizarPaquete(id: string, paquete: any): Observable<Paquete> {
+  return this.http.put<Paquete>(`${this.apiUrl}/${id}`, paquete);
+}
+
+eliminarPaquete(id: string): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/${id}`);
+}
 }
